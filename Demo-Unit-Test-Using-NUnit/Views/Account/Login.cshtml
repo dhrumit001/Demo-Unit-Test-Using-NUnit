@@ -1,0 +1,33 @@
+﻿@model Demo_Unit_Test_Using_NUnit.Models.Account.LoginModel
+@{
+    Layout = "~/Views/Shared/_PublicLayout.cshtml";
+}
+
+<div class="card card-body p-5 card-w">
+
+    <div style="max-width:400px;margin:auto">
+    </div>
+    <div><h4 style="font-size: 24px;margin: 10px;margin: 2rem 0; color:#373737;font-family: Barlow ;font-weight: 600;">LOGIN</h4></div>
+
+    <form asp-action="Login" method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <label class="text-label" for="email_2">Email</label>
+        <div class="input-icons">
+            <i class="fa fa-user icon"></i>
+            <input class="input-field input-padding" asp-for="Email" placeholder="Enter your email">
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="mt-4">
+            <label class="text-label" for="password_2">Password</label>
+            <div class="input-icons">
+                <i class="fa fa-key icon"></i>
+                <input class="input-field" asp-for="Password" placeholder="Enter your password">
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group mb-1 mt-4 ">
+            <button class="btn btn-block btn-success p-2" type="submit">Login</button>
+        </div>
+
+    </form>
+</div>

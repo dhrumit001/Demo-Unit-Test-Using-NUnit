@@ -1,0 +1,222 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+/* Provide sufficient contrast against white background */
+a {
+  color: #0366d6;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.border-top {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px; /* Vertically center the text there */
+}
+
+[dir=ltr] .form-control {
+    border: 1px solid #ccc !important;
+}
+
+.flmp-accordian .accordion .card {
+    margin-bottom: 20px;
+    border: 0;
+    box-shadow:none;
+}
+
+    .flmp-accordian .accordion .card .card-header {
+        border: 0;
+        border-radius: 2px;
+        padding: 0;
+    }
+
+        .flmp-accordian .accordion .card .card-header .btn-header-link {
+            display: block;
+            text-align: left;
+            color: #fff;
+            padding: 10px;
+            background: #114a7e;
+        }
+
+            .flmp-accordian .accordion .card .card-header .btn-header-link:focus {
+                box-shadow: none !important;
+            }
+
+            .flmp-accordian .accordion .card .card-header .btn-header-link:after {
+                content: "\f107";
+                font-family: 'Font Awesome 5 Free';
+                font-weight: 900;
+                float: right;
+            }
+
+            .flmp-accordian .accordion .card .card-header .btn-header-link.collapsed {
+                background: #114a7e;
+                color: #fff;
+            }
+
+                .flmp-accordian .accordion .card .card-header .btn-header-link.collapsed:after {
+                    content: "\f106";
+                }
+
+    .flmp-accordian .accordion .card .collapsing {
+        line-height: 30px;
+    }
+
+    .flmp-accordian .accordion .card .collapse {
+        border: 0;
+    }
+
+        .flmp-accordian .accordion .card .collapse.show {
+            line-height: 30px;
+        }
+.mdk-header-layout__content {
+    padding-top: 60px;
+}
+.navbar .dropdown {
+    display: flex;
+    align-items: center;
+}
+a.dropdown-toggle.navbar-toggler.navbar-toggler-dashboard.border-left.d-flex.align-items-center.ml-navbar {
+    margin-left:0px;
+}
+[dir=ltr] .table thead th {
+    font-size: 15px;
+    color: #114a7e;
+    padding: 5px 15px !important;
+}
+body .paginate_button, .ellipsis {
+    color: #16428e;
+}
+body .current {
+    background-color: #16428e !important;
+    color: #fff !important;
+}
+.paginate_button, .ellipsis {
+    position: relative;
+    float: left;
+    padding: 6px 12px;
+    margin-left: 0px;
+    line-height: 1.42857143;
+    color: black;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    margin:15px 0;
+}
+.flmp-accordian .accordion .card .collapse.show {
+    line-height: 30px;
+    border: 1px solid #c5c5c5;
+    border-radius: 0px 0px 10px 10px;
+}
+[dir=ltr] .table th, [dir=ltr] .table td {
+    border: 1px solid #c6c6c6;
+}
+table thead {
+    border-top: 1px solid #c6c6c6;
+    background-color: #f8f9fa
+}
+.flmp-accordian .accordion .card .card-header .btn-header-link {
+    font-size: 19px;
+}
+.card-header a.btn.btn-header-link.collapsed {
+    border-radius: 10px !important;
+}
+.card-header a.btn.btn-header-link {
+    border-radius: 10px 10px 0 0px !important
+}
+.check-box-row .form-group {
+    display: flex;
+}
+.check-box-row .control-label {
+    order: 2;
+    padding-left: 10px;
+    margin-bottom: 0;
+}
+[dir=ltr] .modal-header .close span {
+    font-size: 30px;
+}
+#organizations-users .cls-edit-organization {
+    font-size: 19px !important;
+    margin-right: 10px !important;
+    font-weight: normal;
+}
+#individual-license-users .form-inline {
+    margin-bottom: 25px;
+}
+#individual-license-users .form-inline .form-control.mb-2.mr-sm-3 {
+    width:70%;
+}
+    #individual-license-users .form-inline .w-50 {
+        display: flex;
+    }
+    /*#individual-license-users .form-inline .check-box-from.w-50 {
+        justify-content: end;
+    }*/
+#individual-license-users .card {
+    box-shadow: 0px 2px 7px #cfcfcf !important; 
+    border-radius:10px;
+}
+
+[dir=ltr] .sidebar-light .active > .sidebar-menu-button .sidebar-menu-icon {
+    color: #ffffff;
+}
+
+.cls-align-center{
+    text-align:center !important;
+}

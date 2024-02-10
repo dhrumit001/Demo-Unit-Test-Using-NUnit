@@ -1,0 +1,53 @@
+﻿@model List<Demo_Unit_Test_Using_NUnit.Core.Domain.Tasks.Task>
+@{
+    ViewData["Title"] = "Index";
+    ViewBag.SelectedMenuItem = "Dashboard";
+}
+
+
+<div class="container-fluid page__heading-container">
+    <div class="page__heading d-flex align-items-center justify-content-between">
+        <h1 class="m-0">Today's Tasks</h1>
+    </div>
+</div>
+
+<div class="container-fluid page__container">
+    <div class="flmp-accordian">
+        <div class="accordion" id="individual-license-users">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive border-bottom" data-toggle="lists">
+                        <table class="table mb-0 thead-border-top-0" id="tbl-individual-orders">
+                            <thead>
+                                <tr>
+                                    <th>Task Title</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var data in Model)
+                                {
+                                    <tr>
+                                        <th>@data.Title</th>
+                                        <th>@data.Description</th>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<style>
+    #tbl-individual-orders .cls-edit-organization {
+        font-size: 20px !important;
+        margin-right: 10px !important;
+    }
+
+    #tbl-individual-orders_filter {
+        display: none;
+    }
+</style>

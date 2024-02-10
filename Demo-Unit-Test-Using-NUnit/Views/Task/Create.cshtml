@@ -1,0 +1,57 @@
+﻿@model Demo_Unit_Test_Using_NUnit.Models.Task.TaskModel
+
+@{
+    ViewData["Title"] = "Create Task";
+    ViewBag.SelectedMenuItem = "Tasks";
+}
+<div class="container-fluid page__heading-container">
+    <div class="page__heading d-flex align-items-center justify-content-between">
+        <h1 class="m-0">Create Task</h1>
+    </div>
+</div>
+
+<div class="container-fluid page__container">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card" style="height:auto !important">
+                <div class="card-body">
+                    <form asp-action="Create" id="frm-update-user-profile">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label asp-for="Title" class="control-label">Title</label>
+                                    <input asp-for="Title" class="form-control" />
+                                    <span asp-validation-for="Title" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label asp-for="Description" class="control-label">Description</label>
+                                    <textarea name="Description" class="form-control"></textarea>
+                                    <span asp-validation-for="Description" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label asp-for="Date" class="control-label">Date</label>
+                                    <input asp-for="Date" class="form-control" />
+                                    <span asp-validation-for="Date" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="submit" value="Create" class="btn btn-success" id="btn-update-user-profile" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
