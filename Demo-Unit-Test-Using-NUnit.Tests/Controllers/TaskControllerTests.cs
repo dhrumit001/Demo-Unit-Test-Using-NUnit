@@ -17,29 +17,35 @@ namespace Demo_Unit_Test_Using_NUnit.Tests.Controllers
 {
     public class TaskControllerTests
     {
-        public readonly DbContextOptions<ObjectContext> dbContextOptions;
+        private DbContextOptions<ObjectContext> dbContextOptions;
+        private IRepository<TaskDetail> _taskRepository;
 
-        public TaskControllerTests()
+        [SetUp]
+        public void Setup()
         {
             // Build DbContextOptions
             dbContextOptions = new DbContextOptionsBuilder<ObjectContext>()
                 .UseInMemoryDatabase(databaseName: "MyTestDb")
                 .Options;
+
+            var blogContext = new ObjectContext(dbContextOptions);
+            _taskRepository = new EfRepository<TaskDetail>(blogContext);
+
+            //Remove all records 
+            _taskRepository.Delete(_taskRepository.Table.ToList());
         }
 
         [Test]
         public async Task Index_Test_ReturnToHomeIndex_ReturnOnlyLoginUserRecords()
         {
             //Arrange
-            var blogContext = new ObjectContext(dbContextOptions);
-            var taskRepo = new EfRepository<TaskDetail>(blogContext);
-            taskRepo.Insert(new TaskDetail { UserId = 1, Title = "Test", Description = "Desc", Date = DateTime.Now.AddDays(1) });
-            taskRepo.Insert(new TaskDetail { UserId = 1, Title = "Test1", Description = "Desc", Date = DateTime.Now.AddDays(1) });
-            taskRepo.Insert(new TaskDetail { UserId = 2, Title = "Test1", Description = "Desc", Date = DateTime.Now.AddDays(1) });
+            _taskRepository.Insert(new TaskDetail { UserId = 1, Title = "Test", Description = "Desc", Date = DateTime.Now.AddDays(1) });
+            _taskRepository.Insert(new TaskDetail { UserId = 1, Title = "Test1", Description = "Desc", Date = DateTime.Now.AddDays(1) });
+            _taskRepository.Insert(new TaskDetail { UserId = 2, Title = "Test1", Description = "Desc", Date = DateTime.Now.AddDays(1) });
             var userSessionService = new MockUserSessionService();
             userSessionService.CreateSession(1, "test@gmail.com");
-            var taskService = new TaskService(taskRepo);
-            var controller = new TaskController(taskRepo, taskService, userSessionService);
+            var taskService = new TaskService(_taskRepository);
+            var controller = new TaskController(_taskRepository, taskService, userSessionService);
 
             //Act
             var result = await controller.Index();
@@ -53,12 +59,10 @@ namespace Demo_Unit_Test_Using_NUnit.Tests.Controllers
         public void Create_Test_ReturnToHomeIndex_WhenModelStateIsValid(string title, string date)
         {
             //Arrange
-            var blogContext = new ObjectContext(dbContextOptions);
-            var taskRepo = new EfRepository<TaskDetail>(blogContext);
             var userSessionService = new MockUserSessionService();
             userSessionService.CreateSession(1, "test@gmail.com");
-            var taskService = new TaskService(taskRepo);
-            var controller = new TaskController(taskRepo, taskService, userSessionService);
+            var taskService = new TaskService(_taskRepository);
+            var controller = new TaskController(_taskRepository, taskService, userSessionService);
             DateTime.TryParse(date, out DateTime dateTime);
 
             //Act
@@ -82,19 +86,11 @@ namespace Demo_Unit_Test_Using_NUnit.Tests.Controllers
         public void Delete_Test_ReturnBadRequest_WhenIdNotFound(int id)
         {
             //Arrange
-            var blogContext = new ObjectContext(dbContextOptions);
-            var taskRepo = new EfRepository<TaskDetail>(blogContext);
-
-            var task = taskRepo.GetById(1);
-            if (task is not null)
-            {
-                taskRepo.Delete(task);
-            }
-            taskRepo.Insert(new TaskDetail { Id = 1, Title = "Test", Description = "Desc", Date = DateTime.Now.AddDays(1) });
-            var taskService = new TaskService(taskRepo);
+            _taskRepository.Insert(new TaskDetail { Id = 1, Title = "Test", Description = "Desc", Date = DateTime.Now.AddDays(1) });
+            var taskService = new TaskService(_taskRepository);
             var userSessionService = new MockUserSessionService();
             userSessionService.CreateSession(1, "test@gmail.com");
-            var controller = new TaskController(taskRepo, taskService, userSessionService);
+            var controller = new TaskController(_taskRepository, taskService, userSessionService);
 
             //Act
             var result = controller.Delete(id);
