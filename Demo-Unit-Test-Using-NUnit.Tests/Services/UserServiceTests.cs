@@ -32,7 +32,6 @@ namespace Demo_Unit_Test_Using_NUnit.Tests.Services
             var userRepo = new EfRepository<User>(blogContext);
             userRepo.Insert(new User() { Email = "dhrumit.patel@ics-global.in", Password = "Test@124", Active = true });
             userRepo.Insert(new User() { Email = "test.user@ics-global.in", Password = "Test@124", Active = true });
-
             var service = new UserService(userRepo);
 
             //Act
@@ -68,7 +67,7 @@ namespace Demo_Unit_Test_Using_NUnit.Tests.Services
         #region Test CreateUser
 
         [TestCase("dhrumit.patel277@ics-global.in", "Test@124")]
-        public async Task CreateUser_Test_With_New_User(string email, string password)
+        public async Task CreateUser_Test_With_Not_Exist_User(string email, string password)
         {
             //Arrange
             var blogContext = new ObjectContext(dbContextOptions);

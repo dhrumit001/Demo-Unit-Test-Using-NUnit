@@ -33,15 +33,33 @@ namespace Demo_Unit_Test_Using_NUnit.Tests.Services
             var blogContext = new ObjectContext(dbContextOptions);
             var taskRepo = new EfRepository<TaskDetail>(blogContext);
             var service = new TaskService(taskRepo);
-            var task = new TaskDetail { Title = "Demo on monday", Date = DateTime.Now, UserId = 1 };
+            var task = new TaskDetail { Title = "Demo on monday", Date = DateTime.Now.AddDays(-1), UserId = 1 };
 
             //Act Asset
             Assert.Throws(Is.TypeOf<Exception>().And.Message.EqualTo("Can not create task with past date"), () => service.CreateTask(task));
         }
 
+        [Test]
+        public void CreateTask_Test_With_Valid_Input()
+        {
+            //Arrange
+            var blogContext = new ObjectContext(dbContextOptions);
+            var taskRepo = new EfRepository<TaskDetail>(blogContext);
+            var alltasks = taskRepo.Table.ToList();
+            taskRepo.Delete(alltasks);
+            var service = new TaskService(taskRepo);
+            var task = new TaskDetail { Title = "Demo on monday", Date = DateTime.Now, UserId = 1 };
+
+            //Act
+            service.CreateTask(task);
+
+            //Act
+            Assert.That(taskRepo.Table.Count, Is.EqualTo(1));
+        }
+
         #endregion
 
-        #region Test CreateTask
+        #region Test GetAllTasks
 
         [TestCase(1, null, ExpectedResult = 2)]
         [TestCase(2, null, ExpectedResult = 1)]
@@ -51,14 +69,14 @@ namespace Demo_Unit_Test_Using_NUnit.Tests.Services
         {
             //Arrange
             var blogContext = new ObjectContext(dbContextOptions);
-            var taskRepo = new EfRepository<Core.Domain.Tasks.TaskDetail>(blogContext);
+            var taskRepo = new EfRepository<TaskDetail>(blogContext);
             var service = new TaskService(taskRepo);
 
             var tasks = taskRepo.Table.ToList();
             taskRepo.Delete(tasks);
             taskRepo.Insert(new TaskDetail { UserId = 1, Title = "Test", Description = "Desc", Date = DateTime.Now.AddDays(1) });
             taskRepo.Insert(new TaskDetail { UserId = 1, Title = "Test1", Description = "Desc", Date = DateTime.Now.AddDays(1) });
-            taskRepo.Insert(new TaskDetail { UserId = 2, Title = "Test1", Description = "Desc", Date = DateTime.Now.AddDays(1) });
+            taskRepo.Insert(new TaskDetail { UserId = 2, Title = "Test1", Description = "Desc", Date = Convert.ToDateTime("10/02/2024") });
 
             //Act
             var result = await service.GetAllTasks(userId, date);

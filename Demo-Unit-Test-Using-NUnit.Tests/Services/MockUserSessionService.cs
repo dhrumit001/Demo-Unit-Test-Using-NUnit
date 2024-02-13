@@ -10,21 +10,21 @@ namespace Demo_Unit_Test_Using_NUnit.Tests.Services
 {
     public class MockUserSessionService : IUserSessionService
     {
-        private UserSession userSession;
+        private UserSession? _userSession;
 
         public void CreateSession(int id, string email)
         {
-            userSession = new UserSession { Id = id, Email = email };
+            _userSession = new UserSession { Id = id, Email = email };
         }
 
         public UserSession GetSession()
         {
-            return userSession;
+            return _userSession;
         }
 
         public void ClearSession()
         {
-            userSession = null;
+            _userSession = null;
         }
     }
 }

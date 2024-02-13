@@ -37,7 +37,8 @@ namespace Demo_Unit_Test_Using_NUnit.Services
             _userRepository.Insert(new User
             {
                 Email = email,
-                Password = password
+                Password = password,
+                Active = true
             });
         }
     }
