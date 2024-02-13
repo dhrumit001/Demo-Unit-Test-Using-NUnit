@@ -54,7 +54,7 @@ namespace Demo_Unit_Test_Using_NUnit.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<User>();
-            modelBuilder.Entity<Core.Domain.Tasks.Task>();
+            modelBuilder.Entity<Core.Domain.Tasks.TaskDetail>();
         }
 
         #endregion

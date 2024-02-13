@@ -1,8 +1,10 @@
-﻿using System.Globalization;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Globalization;
 
 namespace Demo_Unit_Test_Using_NUnit.Core.Domain.Tasks
 {
-    public class Task : BaseEntity
+    [Table("Task")]
+    public class TaskDetail : BaseEntity
     {
         public string Title { get; set; }
 

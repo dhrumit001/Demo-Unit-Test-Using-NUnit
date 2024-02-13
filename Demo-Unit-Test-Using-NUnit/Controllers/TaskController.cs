@@ -12,11 +12,11 @@ namespace Demo_Unit_Test_Using_NUnit.Controllers
     public class TaskController : Controller
     {
         private readonly TaskService _taskService;
-        private readonly IRepository<Core.Domain.Tasks.Task> _taskRepository;
+        private readonly IRepository<Core.Domain.Tasks.TaskDetail> _taskRepository;
         private readonly IUserSessionService _userSessionService;
 
         public TaskController(
-            IRepository<Core.Domain.Tasks.Task> taskRepository,
+            IRepository<Core.Domain.Tasks.TaskDetail> taskRepository,
             TaskService taskService,
             IUserSessionService userSessionService)
         {
@@ -45,7 +45,7 @@ namespace Demo_Unit_Test_Using_NUnit.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    _taskService.CreateTask(new Core.Domain.Tasks.Task
+                    _taskService.CreateTask(new TaskDetail
                     {
                         Title = model.Title,
                         UserId = _userSessionService.GetSession().Id,

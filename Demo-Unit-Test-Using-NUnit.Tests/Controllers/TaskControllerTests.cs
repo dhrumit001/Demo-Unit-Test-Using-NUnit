@@ -28,14 +28,14 @@ namespace Demo_Unit_Test_Using_NUnit.Tests.Controllers
         }
 
         [Test]
-        public async System.Threading.Tasks.Task Index_Test_ReturnToHomeIndex_ReturnOnlyLoginUserRecords()
+        public async Task Index_Test_ReturnToHomeIndex_ReturnOnlyLoginUserRecords()
         {
             //Arrange
             var blogContext = new ObjectContext(dbContextOptions);
-            var taskRepo = new EfRepository<Core.Domain.Tasks.Task>(blogContext);
-            taskRepo.Insert(new Core.Domain.Tasks.Task { UserId = 1, Title = "Test", Description = "Desc", Date = DateTime.Now.AddDays(1) });
-            taskRepo.Insert(new Core.Domain.Tasks.Task { UserId = 1, Title = "Test1", Description = "Desc", Date = DateTime.Now.AddDays(1) });
-            taskRepo.Insert(new Core.Domain.Tasks.Task { UserId = 2, Title = "Test1", Description = "Desc", Date = DateTime.Now.AddDays(1) });
+            var taskRepo = new EfRepository<TaskDetail>(blogContext);
+            taskRepo.Insert(new TaskDetail { UserId = 1, Title = "Test", Description = "Desc", Date = DateTime.Now.AddDays(1) });
+            taskRepo.Insert(new TaskDetail { UserId = 1, Title = "Test1", Description = "Desc", Date = DateTime.Now.AddDays(1) });
+            taskRepo.Insert(new TaskDetail { UserId = 2, Title = "Test1", Description = "Desc", Date = DateTime.Now.AddDays(1) });
             var userSessionService = new MockUserSessionService();
             userSessionService.CreateSession(1, "test@gmail.com");
             var taskService = new TaskService(taskRepo);
@@ -45,7 +45,7 @@ namespace Demo_Unit_Test_Using_NUnit.Tests.Controllers
             var result = await controller.Index();
 
             //Assert
-            var count = (((result as ViewResult).Model) as List<Core.Domain.Tasks.Task>).Count;
+            var count = ((result as ViewResult).Model as List<TaskDetail>).Count;
             Assert.That(count, Is.EqualTo(2));
         }
 
@@ -54,7 +54,7 @@ namespace Demo_Unit_Test_Using_NUnit.Tests.Controllers
         {
             //Arrange
             var blogContext = new ObjectContext(dbContextOptions);
-            var taskRepo = new EfRepository<Core.Domain.Tasks.Task>(blogContext);
+            var taskRepo = new EfRepository<TaskDetail>(blogContext);
             var userSessionService = new MockUserSessionService();
             userSessionService.CreateSession(1, "test@gmail.com");
             var taskService = new TaskService(taskRepo);
@@ -62,7 +62,7 @@ namespace Demo_Unit_Test_Using_NUnit.Tests.Controllers
             DateTime.TryParse(date, out DateTime dateTime);
 
             //Act
-            var result = controller.Create(new Models.Task.TaskModel
+            var result = controller.Create(new TaskModel
             {
                 Title = title,
                 Date = dateTime
@@ -83,14 +83,14 @@ namespace Demo_Unit_Test_Using_NUnit.Tests.Controllers
         {
             //Arrange
             var blogContext = new ObjectContext(dbContextOptions);
-            var taskRepo = new EfRepository<Core.Domain.Tasks.Task>(blogContext);
+            var taskRepo = new EfRepository<TaskDetail>(blogContext);
 
             var task = taskRepo.GetById(1);
             if (task is not null)
             {
                 taskRepo.Delete(task);
             }
-            taskRepo.Insert(new Core.Domain.Tasks.Task { Id = 1, Title = "Test", Description = "Desc", Date = DateTime.Now.AddDays(1) });
+            taskRepo.Insert(new TaskDetail { Id = 1, Title = "Test", Description = "Desc", Date = DateTime.Now.AddDays(1) });
             var taskService = new TaskService(taskRepo);
             var userSessionService = new MockUserSessionService();
             userSessionService.CreateSession(1, "test@gmail.com");

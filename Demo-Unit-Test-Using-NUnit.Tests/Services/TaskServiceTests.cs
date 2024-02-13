@@ -31,9 +31,9 @@ namespace Demo_Unit_Test_Using_NUnit.Tests.Services
         {
             //Arrange
             var blogContext = new ObjectContext(dbContextOptions);
-            var taskRepo = new EfRepository<Core.Domain.Tasks.Task>(blogContext);
+            var taskRepo = new EfRepository<TaskDetail>(blogContext);
             var service = new TaskService(taskRepo);
-            var task = new Core.Domain.Tasks.Task { Title = "Demo on monday", Date = DateTime.Now, UserId = 1 };
+            var task = new TaskDetail { Title = "Demo on monday", Date = DateTime.Now, UserId = 1 };
 
             //Act Asset
             Assert.Throws(Is.TypeOf<Exception>().And.Message.EqualTo("Can not create task with past date"), () => service.CreateTask(task));
@@ -51,14 +51,14 @@ namespace Demo_Unit_Test_Using_NUnit.Tests.Services
         {
             //Arrange
             var blogContext = new ObjectContext(dbContextOptions);
-            var taskRepo = new EfRepository<Core.Domain.Tasks.Task>(blogContext);
+            var taskRepo = new EfRepository<Core.Domain.Tasks.TaskDetail>(blogContext);
             var service = new TaskService(taskRepo);
 
             var tasks = taskRepo.Table.ToList();
             taskRepo.Delete(tasks);
-            taskRepo.Insert(new Core.Domain.Tasks.Task { UserId = 1, Title = "Test", Description = "Desc", Date = DateTime.Now.AddDays(1) });
-            taskRepo.Insert(new Core.Domain.Tasks.Task { UserId = 1, Title = "Test1", Description = "Desc", Date = DateTime.Now.AddDays(1) });
-            taskRepo.Insert(new Core.Domain.Tasks.Task { UserId = 2, Title = "Test1", Description = "Desc", Date = DateTime.Now.AddDays(1) });
+            taskRepo.Insert(new TaskDetail { UserId = 1, Title = "Test", Description = "Desc", Date = DateTime.Now.AddDays(1) });
+            taskRepo.Insert(new TaskDetail { UserId = 1, Title = "Test1", Description = "Desc", Date = DateTime.Now.AddDays(1) });
+            taskRepo.Insert(new TaskDetail { UserId = 2, Title = "Test1", Description = "Desc", Date = DateTime.Now.AddDays(1) });
 
             //Act
             var result = await service.GetAllTasks(userId, date);

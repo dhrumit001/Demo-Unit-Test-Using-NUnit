@@ -15,23 +15,24 @@ namespace Demo_Unit_Test_Using_NUnit.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IRepository<User> _userRepository;
-        private readonly UserService _userService;
+        private readonly IUserSessionService _userSessionService;
         private readonly TaskService _taskService;
 
         public HomeController(ILogger<HomeController> logger,
             IRepository<User> userRepository,
+            IUserSessionService userSessionService,
             UserService userService,
             TaskService taskService)
         {
             _logger = logger;
             _userRepository = userRepository;
-            _userService = userService;
+            _userSessionService = userSessionService;
             _taskService = taskService;
         }
 
         public async Task<IActionResult> Index()
         {
-            var todayTasks = await _taskService.GetAllTasks(1, DateTime.Now);
+            var todayTasks = await _taskService.GetAllTasks(_userSessionService.GetSession().Id, DateTime.Now);
             return View(todayTasks);
         }
 
